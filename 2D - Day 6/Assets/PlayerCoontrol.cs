@@ -26,6 +26,10 @@ public class PlayerCoontrol : MonoBehaviour
     const string IDLE_ANIM = "Idle";
     const string RUN_ANIM = "Run";
     const string JUMP_ANIM = "Jump";
+
+
+    public GameObject bullet;
+    public float bulletSpeed;
    
 
 
@@ -45,6 +49,7 @@ public class PlayerCoontrol : MonoBehaviour
         movePlayer();
         playerJump();
         //playAnim();
+        ShootBullet();
     }
 
     void movePlayer()
@@ -99,5 +104,28 @@ public class PlayerCoontrol : MonoBehaviour
         anim.Play(toPlay);
     }
 
-    
+    void ShootBullet()
+    {
+        if (Input.GetMouseButton(0))
+        {
+           GameObject bulletClone = Instantiate(bullet, transform.position, Quaternion.identity);
+
+            if (isRight)
+            {
+
+
+                bulletClone.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, 0);
+            }
+
+            else
+            {
+                bulletClone.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, 0);
+            }
+
+            Destroy(bulletClone, 3);
+        }
+
+
+
+    }
 }
